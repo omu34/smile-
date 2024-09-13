@@ -1,0 +1,22 @@
+@layer utilities {
+    @keyframes propel {
+        0% {
+            transform: translateX(0);
+        }
+        20% {
+            transform: translateX(25%);
+        }
+        40% {
+            transform: translateX(-25%);
+        }
+        60% {
+            transform: translateX(25%);
+        }
+        100% {
+            transform: translateX(-25%);
+        }
+    }
+    .propel {
+        animation: propel 1s infinite;
+    }
+}
