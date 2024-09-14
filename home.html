@@ -20,6 +20,7 @@
     <meta name="keywords"
         content="Smile For Neuro-Diversity, SfN, Smilefor,  smile-for-neuro-diversity, smile-for, smile-">
     <link rel="stylesheet" href="css/activities.css">
+    <script src="//unpkg.com/alpinejs"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -58,86 +59,188 @@
         </iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div class=" overflow-x-hidden ">
+    <div class="overflow-x-hidden ">
+        <!-- navbar -->
+        <nav x-data="{
+                navigationMenuOpen: false,
+                navigationMenu: '',
+                navigationMenuCloseDelay: 200,
+                navigationMenuCloseTimeout: null,
+                navigationMenuLeave() {
+                let that = this;
+                this.navigationMenuCloseTimeout = setTimeout(() => {
+                that.navigationMenuClose();
+                }, this.navigationMenuCloseDelay);
+                },
+                navigationMenuReposition(navElement) {
+                this.navigationMenuClearCloseTimeout();
+                this.$refs.navigationDropdown.style.left = navElement.offsetLeft + 'px';
+                this.$refs.navigationDropdown.style.marginLeft = (navElement.offsetWidth/2) + 'px';
+                },
+                navigationMenuClearCloseTimeout(){
+                clearTimeout(this.navigationMenuCloseTimeout);
+                },
+                navigationMenuClose(){
+                this.navigationMenuOpen = false;
+                this.navigationMenu = '';
+                }
+                }" class="fixed md:top-1 left-0 right-0 z-50 w-full bg-pink-300 mx-auto rounded-lg max-w-7xl h-16  border-b border-gray-200">
+            <!-- Fixed position with full width -->
 
+            <div class="relative w-full flex items-center justify-center px-4 py-2">
+                <!-- Logo Section -->
+                <div class="flex items-center justify-start space-x-4 py-1">
+                    <img src="images/smile-logo.jpg" class="rounded-full h-10 " alt="Logo" />
+                </div>
 
+                <ul
+                    class="flex items-center justify-center p-1 space-x-1 list-none md:mt-    rounded-md text-red-800 group ">
 
-
-
-        <!-- nav bar -->
-        <nav class="bg-pink-200 fixed top-0 shadow-md  dark:bg-gray-900 fixed top-0 w-full z-50 " id="section1">
-            <div class="py-4 lg:px-8 px-4 max-w-[1280px] h-16 m-auto text-white flex items-center justify-between">
-                <div>
-                    <h1 class="lg:text-2xl text-xl uppercase tracking-wider cursor-pointer font-bold">
-                        <a aria-current='page'
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-gray-100 rounded bg-transparent md:text-gray-200 md:hover:bg-transparent md:hover:text-green-400 md:p-0 md:dark:text-gray-200'
-                            href='index.html'>
-                            <img src="images/smile-logo.jpg" class="h-10 rounded-full" alt="smile Logo" />
+                    <li class="">
+                        <button
+                            :class="{ 'bg-neutral-100' : navigationMenu=='getting-started', 'hover:bg-neutral-100' : navigationMenu!='getting-started' }"
+                            @mouseover="navigationMenuOpen=true; navigationMenuReposition($el); navigationMenu='getting-started'"
+                            @mouseleave="navigationMenuLeave()"
+                            class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:text-neutral-900 focus:outline-none disabled:opacity-50 disabled:pointer-events-none group w-max">
+                            <span class="text-md md:text-lg">Getting started</span>
+                            <svg :class="{ '-rotate-180' : navigationMenuOpen==true && navigationMenu == 'getting-started' }"
+                                class="relative top-[1px] ml-1 h-3 w-3 ease-out duration-300"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            :class="{ 'bg-neutral-100' : navigationMenu=='learn-more', 'hover:bg-neutral-100' : navigationMenu!='learn-more' }"
+                            @mouseover="navigationMenuOpen=true; navigationMenuReposition($el); navigationMenu='learn-more'"
+                            @mouseleave="navigationMenuLeave()"
+                            class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:text-neutral-900 focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-background hover:bg-neutral-100 group w-max">
+                            <span class="text-md md:text-lg">Learn More</span>
+                            <svg :class="{ '-rotate-180' : navigationMenuOpen==true && navigationMenu == 'learn-more' }"
+                                class="relative top-[1px] ml-1 h-3 w-3 ease-out duration-300"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#_"
+                            class="inline-flex items-center text-md md:text-lg justify-center h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md hover:text-neutral-900 focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-background hover:bg-neutral-100 group w-max">
+                            About Us
                         </a>
+                    </li>
+                </ul>
+            </div>
+            <div x-ref="navigationDropdown" x-show="navigationMenuOpen"
+                x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
+                @mouseover="navigationMenuClearCloseTimeout()" @mouseleave="navigationMenuLeave()"
+                class="absolute top-0 pt-3 duration-200 ease-out -translate-x-1/2 translate-y-11" x-cloak>
+                <!-- Dropdown content -->
 
+                <div
+                    class="flex justify-center w-auto h-auto overflow-hidden bg-white border rounded-md shadow-sm border-neutral-200/70">
+                    <div x-show="navigationMenu == 'getting-started'"
+                        class="flex items-stretch justify-center w-full max-w-2xl p-6 gap-x-3">
+                        <div
+                            class="flex-shrink-0 w-48 rounded pt-28 pb-7 bg-gradient-to-br from-pink-200 to-pink-300 ">
+                            <div class="relative px-7 space-y-1.5 text-white">
+                                                    <img src="images/smile-logo.jpg" class="rounded-full h-12" alt="Logo" />
 
-                    </h1>
-                </div>
-                <div class="flex lg:gap-8 gap-6 uppercase tracking-wider cursor-pointer text-lg items-center"
-                    id="navItems">
-                    <span class="group">
-                        <button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
-                            href='' onclick="scrollToSection('section4')">Vision</button>
-                        <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
-                    </span>
-                    <span class="group">
-                        <button aria-current='page'
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
-                            href='' onclick="scrollToSection('section2')">Impact</button>
-                        <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
-                    </span>
+                                <span class="block font-bold">Smile WEB APP</span>
+                            </div>
+                        </div>
+                        <div class="w-72">
+                            <a href="#_" @click="navigationMenuClose()"
+                                class="block px-3.5 py-3 text-sm rounded hover:bg-neutral-100">
+                                <span class="group">
+                                    <button
+                                        class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
+                                        href='' onclick="scrollToSection('section4')">Vision</button>
+                                    <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
+                                </span>
+                                <span class="block font-light leading-5 opacity-50">
+                                    Sfn advocates for the needs and rights of children with neurological
+                                    conditions.</span>
+                            </a>
+                            <a href="#_" @click="navigationMenuClose()"
+                                class="block px-3.5 py-3 text-sm rounded hover:bg-neutral-100">
+                                <span class="group">
+                                    <button aria-current='page'
+                                        class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
+                                        href='' onclick="scrollToSection('section2')">Impact</button>
+                                    <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
+                                </span>
+                                <span class="block leading-5 opacity-50">
+                                    SfN positively impacts the community by advocating for neurodiverse children’s
+                                    rights.
+                                </span>
+                            </a>
 
-                    <span class="group">
-                        <button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
-                            href='' onclick="scrollToSection('section3')">Resources</button>
-                        <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
-                    </span>
-                    <span class="group">
-                        <button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
-                            href='' onclick="scrollToSection('section5')">Partners</button>
-                        <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
-                    </span>
+                        </div>
+                    </div>
+                    <div x-show="navigationMenu == 'learn-more'" class="flex items-stretch justify-center w-full p-6">
+                        <div class="w-72">
+                            <a href="#_" @click="navigationMenuClose()"
+                                class="block px-3.5 py-3 text-sm rounded hover:bg-neutral-100">
+                                <span class="group">
+                                    <button
+                                        class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
+                                        href='' onclick="scrollToSection('section5')">Partners</button>
+                                    <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
+                                </span>
+                                <span class="block font-light leading-5 opacity-50">This how our partners say about our
+                                    general help to the community.</span>
+                            </a>
+                            <a href="#_" @click="navigationMenuClose()"
+                                class="block px-3.5 py-3 text-sm rounded hover:bg-neutral-100">
+                                <span class="group">
+                                    <button
+                                        class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
+                                        href='' onclick="scrollToSection('section3')">Resources</button>
+                                    <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
+                                </span>
+                                <span class="block font-light leading-5 opacity-50">TSfN resources include advocacy
+                                    tools, psychosocial support for caregivers, educational materials,
 
-                    <span class="group">
-                        <button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
-                            href='' onclick="scrollToSection('section7')">Gallery</button>
-                        <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
-                    </span>
+                                    recreational activities, access to affordable therapies and assistive
+                                    devices.</span>
+                            </a>
 
-                </div>
-                <div id="hamburger" class="fa fa-bars flex items-center text-xl" style="display:none;"></div>
-                <div id="mobileNav"
-                    class="fixed flex flex-col gap-8 pt-16 px-4 text-xl uppercase bg-teal-500 h-1/2 inset-0 top-16 w-[70%] left-[-70%] ease-in-out duration-500 cursor-pointer">
-                    <span>
-                        <button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-white rounded hover:bg-green-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white  '
-                            href='' onclick="scrollToSection('section4')">💡Vision🚀</button></span>
-                    <span><button aria-current='page'
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-gray-100 rounded bg-transparent md:text-gray-200 md:hover:bg-transparent md:hover:text-green-400 md:p-0 md:dark:text-gray-200'
-                            href='' onclick="scrollToSection('section2')">🚀Impact🚀</button></span>
-                    <span><button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-white rounded hover:bg-green-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white'
-                            href='' onclick="scrollToSection('section3')">🎨Resources🚀</button></span>
-                    <span><button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-white rounded hover:bg-green-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white  '
-                            href='' onclick="scrollToSection('section5')">💡Partners🚀</button></span>
-
-                    <span><button
-                            class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-white rounded hover:bg-green-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white  '
-                            href='' onclick="scrollToSection('section7')">💡Gallery🚀</button></span>
-
+                        </div>
+                        <div class="w-72">
+                            <a href="#_" @click="navigationMenuClose()"
+                                class="block px-3.5 py-3 text-sm rounded hover:bg-neutral-100">
+                                <span class="group">
+                                    <button
+                                        class='block py-2 px-3 md:text-2xl text-lg  md:font-bold font-medium text-red-900 rounded hover:bg-pink-800 md:hover:bg-transparent  '
+                                        href='' onclick="scrollToSection('section7')">Gallery</button>
+                                    <div class="w-0 group-hover:w-full h-0.5 bg-white ease-in-out duration-500"></div>
+                                </span>
+                                <span class="block font-light leading-5 opacity-50">A framework without the complex
+                                    setup or
+                                    heavy dependencies.</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
+
+
+
+
+
+
+
+
+
+
+
 
 
         <!-- sliders -->
@@ -1441,7 +1544,7 @@
 
     <div class=" overflow-x-hidden">
         <footer
-            class="  fixed  bottom-0 left-0 z-50 w-full p-2 bg-pink-500 border-t border-gray-200 shadow md:flex md:items-center md:justify-between dark:bg-gray-800 dark:border-gray-600">
+            class=" gap-2 fixed  bottom-0 left-0 z-50 w-full p-2 bg-pink-500 border-t border-gray-200 shadow md:flex md:items-center md:justify-between dark:bg-gray-800 dark:border-gray-600">
             <span
                 class="md:justify-start justify-center  max-w-7xl mx-auto text-sm text-black sm:text-center dark:text-white">©
                 2024
@@ -1450,14 +1553,15 @@
             <ul
                 class="md:justify-end justify-center  max-w-7xl mx-auto flex flex-wrap items-center mt-3 text-sm font-medium text-black dark:text-pink-800 sm:mt-0">
 
+                <li class="">
+                    Office Location:
+                    <a target="_blank" href="https://maps.app.goo.gl/761ZZaRew5i5RbHc9"
+                        class="hover:underline text-white hover:text-blue-700 me-4 md:me-6">
+                        Kawangware PAG
+                    </a>
+                </li>
 
-
-                <a target="_blank" href="https://maps.app.goo.gl/761ZZaRew5i5RbHc9"
-                    class="hover:underline text-white hover:text-blue-700 me-4 md:me-6">
-                    Office Location
-                </a>
-
-                <li>
+                <li class="flex justify-center md:justify-normal">
                     Email:
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6IRN1ykmzyqOWsrLC7l_ikuU3-Q3_ji0j6SCU4nRUPAqL0A/viewform?usp=sf_link"
                         class="hover:underline hover:text-blue-700 me-4 md:me-6">
