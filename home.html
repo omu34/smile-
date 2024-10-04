@@ -61,7 +61,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <div class="overflow-x-hidden ">
         <!-- navbar -->
-        <nav x-data="{
+        <div x-data="{
                 navigationMenuOpen: false,
                 navigationMenu: '',
                 navigationMenuCloseDelay: 200,
@@ -84,7 +84,8 @@
                 this.navigationMenuOpen = false;
                 this.navigationMenu = '';
                 }
-                }" class="fixed md:top-1 left-0 right-0 z-50 w-full bg-pink-300 mx-auto rounded-lg max-w-7xl h-16  border-b border-gray-200">
+                }"
+            class="fixed md:top-1 left-0 right-0 z-50 w-full bg-pink-300 mx-auto rounded-lg max-w-7xl h-16  border-b border-gray-200">
             <!-- Fixed position with full width -->
 
             <div class="relative w-full flex items-center justify-center px-4 py-2">
@@ -146,10 +147,9 @@
                     class="flex justify-center w-auto h-auto overflow-hidden bg-white border rounded-md shadow-sm border-neutral-200/70">
                     <div x-show="navigationMenu == 'getting-started'"
                         class="flex items-stretch justify-center w-full max-w-2xl p-6 gap-x-3">
-                        <div
-                            class="flex-shrink-0 w-48 rounded pt-28 pb-7 bg-gradient-to-br from-pink-200 to-pink-300 ">
+                        <div class="flex-shrink-0 w-48 rounded pt-28 pb-7 bg-gradient-to-br from-pink-200 to-pink-300 ">
                             <div class="relative px-7 space-y-1.5 text-white">
-                                                    <img src="images/smile-logo.jpg" class="rounded-full h-12" alt="Logo" />
+                                <img src="images/smile-logo.jpg" class="rounded-full h-12" alt="Logo" />
 
                                 <span class="block font-bold">Smile WEB APP</span>
                             </div>
@@ -229,7 +229,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
 
 
 
@@ -554,6 +554,17 @@
             <!-- end banner section -->
         </div>
         <!-- end sliders -->
+
+
+        <div class="hidden md:block animate-bounce fixed bottom-60 right-4 z-50">
+                <a href="https://wa.me/254715830347" class="animate-bounce" target="_blank">
+                    <svg fill="#000000" width="60px" height="60px" viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg" class="icon w-12 h-12">
+                        <path fill="#25D366"
+                            d="M16 0C7.163 0 0 7.163 0 16c0 2.821.734 5.479 2.015 7.82L0 32l8.406-2.016A15.943 15.943 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm9.705 23.87c-.371 1.043-2.178 1.979-3.043 2.068-.784.077-1.785.108-2.872-.17-.663-.158-1.514-.49-2.61-1.002-4.57-2.104-7.536-6.878-7.77-7.203-.232-.325-1.86-2.48-1.86-4.73 0-2.25 1.177-3.349 1.591-3.814.371-.433.981-.651 1.571-.651.188 0 .358.01.507.018.446.019.668.03.961.744.371.902 1.264 3.125 1.37 3.348.106.222.177.481.032.775-.148.302-.222.482-.444.74-.223.26-.468.58-.67.78-.22.228-.448.476-.195.924.252.447 1.118 1.836 2.4 2.976 1.653 1.472 3.033 1.932 3.501 2.147.467.215.744.195 1.02-.117.276-.312 1.178-1.338 1.332-1.611.154-.272.221-.453.443-.744.223-.291.444-.3.743-.204.3.096 1.888.89 2.211 1.048.325.16.556.235.638.364.083.13.083.75-.29 1.793z" />
+                    </svg>
+                </a>
+        </div>
 
         <!-- vision section -->
         <section class="bg-gray-100 py-16" id="section4">
@@ -1452,10 +1463,10 @@
 
 
         <div class="hidden md:block flex justify-end ">
-            <div id="scrollToTopButton" class="scroll-to-top bottom-10  hidden" onclick="scrollToTop()">
+            <div id="scrollToTopButton" class="scroll-to-top bottom-16  hidden " onclick="scrollToTop()">
                 <svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" id="up-arrow-circle"
                     data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"
-                    class="icon flat-color animate-bounce w-12 h-12">
+                    class="icon flat-color animate-pulse w-12 h-12">
                     <circle id="primary" cx="12" cy="12" r="10" style="fill: rgb(246, 136, 178);"></circle>
                     <path id="secondary" d="M10 16L14 16L14 10L16 10L12 6L8 10L10 10L10 16Z"
                         style="fill: rgb(44, 169, 188);"></path>
