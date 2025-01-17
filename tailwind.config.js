@@ -1,9 +1,21 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./**/*.html", "./js/**/*.js", "./css/**/*.css"],
+  content: [
+    './**/*.html', 
+    './src/**/*.css', 
+    './js/**/*.js', 
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'bellmt': ['Bell MT', 'serif'],
+        'bellmt-italic': ['Bell MT Italic', 'serif'],
+        'bellmt-bold': ['Bell MT Bold', 'serif']
+      },
+    },
   },
   plugins: [],
-}
+};
+
+
+
 
